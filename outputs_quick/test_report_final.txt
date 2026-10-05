@@ -1,0 +1,21 @@
+Final model: XGBoost (tuned)
+Features: 41
+accuracy                           0.679388
+balanced_accuracy                  0.353569
+macro_f1                           0.331581
+weighted_f1                        0.707676
+macro_precision                    0.322393
+macro_recall                       0.353569
+mcc                                0.153598
+baseline_macro_f1_always_ontime    0.225481
+
+              precision    recall  f1-score   support
+
+     On-time     0.8729    0.7805    0.8241    934495
+       Minor     0.1475    0.2051    0.1716    113739
+    Moderate     0.1487    0.2438    0.1847     63633
+      Severe     0.1205    0.1849    0.1459     25863
+
+    accuracy                         0.6794   1137730
+   macro avg     0.3224    0.3536    0.3316   1137730
+weighted avg     0.7427    0.6794    0.7077   1137730

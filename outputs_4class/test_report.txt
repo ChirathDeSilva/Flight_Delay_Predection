@@ -1,0 +1,20 @@
+Selected: LightGBM
+accuracy                           0.669965
+balanced_accuracy                  0.363596
+macro_f1                           0.332553
+weighted_f1                        0.703255
+macro_precision                    0.321924
+macro_recall                       0.363596
+mcc                                0.158578
+baseline_macro_f1_always_ontime    0.225481
+
+              precision    recall  f1-score   support
+
+     On-time     0.8768    0.7665    0.8180    934495
+       Minor     0.1505    0.2169    0.1777    113739
+    Moderate     0.1464    0.2407    0.1821     63633
+      Severe     0.1140    0.2303    0.1525     25863
+
+    accuracy                         0.6700   1137730
+   macro avg     0.3219    0.3636    0.3326   1137730
+weighted avg     0.7460    0.6700    0.7033   1137730

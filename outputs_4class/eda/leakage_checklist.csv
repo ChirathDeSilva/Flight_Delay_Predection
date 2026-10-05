@@ -1,0 +1,8 @@
+item,leakage risk,how it is prevented
+DEP_DELAY,Only known after the plane leaves the gate; correlation with ARR_DELAY = 0.97,Never used as a feature of the flight itself (only to build lagged context of OTHER flights)
+"DEP_TIME, WHEELS_OFF, TAXI_OUT, WHEELS_ON, TAXI_IN, ARR_TIME, ACTUAL_ELAPSED_TIME, AIR_TIME",Realised during or after the flight,Not loaded at all
+ARR_DELAY,It is the target,Used only to create the 4 class labels
+Recent-delay (context) features,Could include the flight itself or future flights,Only flights scheduled >= 3 h earlier are used; the flight is never in its own window
+Train / validation / test split,A random split lets the model see the future,Time-based split: Jan-Aug / Sep-Oct / Nov-Dec
+"Encoders, class weights",Fitting them on all data leaks information,Fitted on the training set only
+Class multipliers,Tuning on test data would inflate scores,Tuned on validation only; test used once at the end

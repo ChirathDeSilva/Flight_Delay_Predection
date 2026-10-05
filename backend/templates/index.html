@@ -1,0 +1,233 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% if page == "home" %}Home{% elif page == "prediction" %}Prediction{% elif page == "performance" %}Model Performance{% else %}About{% endif %} · Altura</title>
+
+  <style>
+
+    :root{--navy:#102b3b;--ink:#17313d;--muted:#6f858d;--teal:#087f91;--aqua:#35c3c8;--line:#dbe8ea;--bg:#f4f8f8;--white:#fff;--shadow:0 18px 45px #12313d12;--green:#11866e;--amber:#d78e22;--orange:#dc6c32;--red:#ca5268}
+
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+
+    .content {
+  background:
+    linear-gradient(
+      rgba(8, 32, 45, 0.45),
+      rgba(0, 76, 93, 0.55)
+    ),
+    url("/static/images/flight-background.png")
+      center top / cover no-repeat fixed;
+}
+    .layout{display:flex;min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:260px;background:var(--navy);color:#d9e8ea;padding:28px 18px;display:flex;flex-direction:column;z-index:5}
+
+    .brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;font-size:1.25rem;font-weight:800;margin:0 10px 44px}.brand-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--aqua),#087f91);display:grid;place-items:center;font-size:1.2rem}
+
+    .brand small{display:block;color:#9cb9bf;font-size:.65rem;font-weight:500;letter-spacing:.02em}.nav-label{font-size:.67rem;color:#729199;text-transform:uppercase;letter-spacing:.16em;margin:0 12px 10px}
+
+    nav a{display:flex;align-items:center;gap:13px;padding:12px 13px;border-radius:10px;color:#b8d0d4;text-decoration:none;margin:4px 0;font-weight:650}nav a:hover,nav a.active{background:#ffffff14;color:#fff}nav a.active{box-shadow:inset 3px 0 var(--aqua)}.nav-icon{width:20px;text-align:center;font-size:1.05rem}
+
+    .side-note{margin-top:auto;border-top:1px solid #ffffff1c;padding:18px 10px 0;color:#89a9b0;font-size:.78rem}.side-note strong{display:block;color:#d5e6e8;margin-bottom:4px}
+
+    .content{width:calc(100% - 260px);margin-left:260px}.topbar{display:flex;justify-content:space-between;align-items:center;max-width:1120px;margin:auto;padding:25px 32px 8px;color:var(--muted);font-size:.82rem}.topbar a{color:var(--teal);font-weight:750;text-decoration:none}
+
+    main{max-width:1120px;margin:0 auto;padding:22px 32px 52px}.eyebrow{color:var(--teal);font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800}.hero h1{font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.04;letter-spacing:-.055em;margin:13px 0 16px;color:var(--navy)}.hero p{max-width:620px;color:var(--muted);font-size:1.05rem}.hero{padding:45px 0 32px}
+
+    .btn{display:inline-flex;align-items:center;gap:9px;border:0;border-radius:10px;padding:13px 18px;text-decoration:none;font-weight:800;cursor:pointer}.btn-primary{background:var(--navy);color:#fff;box-shadow:0 9px 22px #102b3b26}.btn-secondary{background:#e5f0f1;color:var(--teal)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}.card{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:var(--shadow)}.card h2{font-size:1.12rem;margin:0 0 12px;color:var(--navy)}.card h3{font-size:.95rem;color:var(--navy);margin:20px 0 8px}.card p{color:var(--muted);margin:7px 0}.feature{min-height:155px}.feature-icon{font-size:1.5rem;margin-bottom:12px}.feature strong{display:block;color:var(--navy);margin-bottom:4px}
+
+    .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.metric{background:#eef7f798;border:1px solid #d6ebec;border-radius:13px;padding:18px}.metric span{display:block;color:var(--muted);font-size:.76rem}.metric strong{display:block;color:var(--navy);font-size:1.7rem;line-height:1.2;margin-top:4px}.missing{color:var(--muted);font-size:.88rem;background:#f7f9f9;border:1px dashed var(--line);padding:14px;border-radius:10px}
+
+    .table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:.83rem}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}.table td:not(:first-child){font-variant-numeric:tabular-nums}.matrix{max-width:100%;border-radius:10px;border:1px solid var(--line)}
+
+    .form-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;color:#567078;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:13px 0 6px}.hint{font-weight:500;text-transform:none;letter-spacing:0;color:#9aadb1}input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font:inherit}input:focus,select:focus{outline:3px solid #35c3c833;border-color:var(--teal)}.err{color:var(--red);font-size:.76rem;min-height:1em}.invalid{border-color:var(--red)!important}details{border:1px solid var(--line);border-radius:11px;padding:0 13px 12px;margin-top:15px;background:#fbfdfd}summary{cursor:pointer;padding:12px 0;font-weight:750;color:#365863}.form-actions{display:flex;gap:9px;margin-top:20px}.result-card{min-height:300px}.badge{display:inline-block;padding:8px 14px;border-radius:999px;color:#fff;font-weight:800}.Ontime{background:var(--green)}.Minor{background:var(--amber)}.Moderate{background:var(--orange)}.Severe{background:var(--red)}.big{font-size:3.4rem;line-height:1;font-weight:850;color:var(--teal);margin:15px 0 5px}.muted{color:var(--muted);font-size:.85rem}.bar{display:grid;grid-template-columns:80px 1fr 50px;gap:9px;align-items:center;margin:10px 0;font-size:.8rem;font-weight:700}.track{height:9px;background:#e6eeee;border-radius:10px;overflow:hidden}.fill{height:100%;border-radius:10px}.notice{padding:11px 13px;border-radius:10px;font-size:.82rem;margin-top:12px}.notice.warn{background:#fff8e8;border:1px solid #f0d999}.notice.info{background:#edf8fa;border:1px solid #c5e7e9}.hidden{display:none}.list{padding-left:20px;color:var(--muted)}.class-chip{border-left:4px solid var(--teal);padding:8px 14px;background:#f6fafa;margin:8px 0}.class-chip strong{color:var(--navy)}
+
+    footer{max-width:1120px;padding:0 32px 25px;color:#88a0a5;font-size:.76rem}.mobile-menu{display:none}
+
+    @media(max-width:900px){.sidebar{width:220px}.content{width:calc(100% - 220px);margin-left:220px}.grid-2,.form-layout{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}}
+
+    @media(max-width:650px){.sidebar{position:static;width:100%;height:auto;padding:16px;display:block}.layout{display:block}.content{width:100%;margin:0}.brand{margin:0 0 15px}.sidebar nav{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}.nav-label,.side-note{display:none}.topbar{padding:18px 18px 0}.topbar span{display:none}main{padding:15px 18px 38px}.hero{padding:30px 0}.grid,.metric-grid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.card{padding:18px}.hero h1{font-size:2.6rem}footer{padding:0 18px 20px}}
+
+    @media(max-width:420px){.grid,.metric-grid{grid-template-columns:1fr}}
+
+  
+/* Aircraft background inspired by the supplied reference. */
+body {background:#07394b;}
+.content {position:relative;isolation:isolate;min-height:100vh;background:linear-gradient(150deg,rgba(8,32,45,.78),rgba(0,76,93,.88)),url("{{ url_for('static', filename='images/flight-background.png') }}") center top / cover fixed;}
+.topbar,.topbar a {color:#d8ecf0;}
+.hero {padding:48px 0 38px;}
+.hero h1 {color:#fff;text-shadow:0 3px 20px #06243055;}
+.hero p {color:#d2e5e9;}
+.eyebrow {color:#a2e4e8;}
+.card {background:rgba(255,255,255,.98);border:1px solid #ffffff80;box-shadow:0 18px 48px #031f3b28;border-radius:22px;}
+.hero .btn-primary {background:#fff;color:#073f51;}
+.hero .btn-secondary {background:#ffffff18;border:1px solid #ffffff55;color:#fff;}
+.sidebar {background:linear-gradient(180deg,#020c12,#021b22);border-right:1px solid #ffffff14;}
+footer {color:#c2dde3;}
+footer a {color:#e5f9fb;}
+input,select {background:#fff;}
+a:focus-visible,button:focus-visible {outline:3px solid #47d6e1;outline-offset:4px;}
+@media(max-width:650px){.content{background-attachment:scroll;background-position:62% top}.hero{padding:34px 0 28px}.hero h1{font-size:2.5rem}.card{border-radius:18px}}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+
+    <a class="brand" href="/"><span class="brand-mark">✈</span><span>Altura<small>Flight intelligence</small></span></a>
+
+    <div class="nav-label">Workspace</div>
+
+    <nav aria-label="Main navigation">
+
+      <a href="/" class="{% if page == 'home' %}active{% endif %}"><span class="nav-icon">⌂</span>Overview</a>
+
+      <a href="/prediction" class="{% if page == 'prediction' %}active{% endif %}"><span class="nav-icon">⌁</span>Predict delay</a>
+
+      <a href="/performance" class="{% if page == 'performance' %}active{% endif %}"><span class="nav-icon">↗</span>Model performance</a>
+
+      <a href="/about" class="{% if page == 'about' %}active{% endif %}"><span class="nav-icon">ⓘ</span>About project</a>
+
+    </nav>
+
+    <div class="side-note"><strong>Built for better planning</strong>Data-informed delay estimates across four severity categories.</div>
+
+  </aside>
+
+  <div class="content">
+
+    <div class="topbar"><span>Flight delay prediction platform</span><a href="/prediction">Start a prediction →</a></div>
+
+    <main>
+
+    {% if page == "home" %}
+
+      <section class="hero">
+
+        <div class="eyebrow">Decision support for every journey</div>
+
+        <h1>Know the delay risk<br>before you fly.</h1>
+
+        <p>Altura combines flight schedules, airport context, recent delay patterns and weather to give you a clear, four-level prediction in seconds.</p>
+
+        <div class="actions"><a class="btn btn-primary" href="/prediction">Predict flight delay <span>→</span></a><a class="btn btn-secondary" href="/performance">Explore the model</a></div>
+
+      </section>
+
+      <section class="grid">
+
+        <div class="card feature"><div class="feature-icon">◈</div><strong>Context-aware predictions</strong><p>Uses airline, route, schedule, weather and recent network conditions together.</p></div>
+
+        <div class="card feature"><div class="feature-icon">◷</div><strong>Four clear outcomes</strong><p>Understand whether a flight is on-time, minor, moderate or severely delayed.</p></div>
+
+        <div class="card feature"><div class="feature-icon">▥</div><strong>Transparent evaluation</strong><p>Review exported test metrics and model comparisons instead of unsupported claims.</p></div>
+
+      </section>
+
+      <section class="grid-2" style="margin-top:20px">
+
+        <div class="card"><h2>How it works</h2><p><b>1. Describe your flight.</b> Select the airline, airports, date and departure time.</p><p><b>2. Add context.</b> Optional weather and recent-delay details can improve the estimate.</p><p><b>3. Read the risk.</b> Get a predicted class, late-flight probability and outcome breakdown.</p></div>
+
+        <div class="card"><h2>Ready to check a flight?</h2><p>The prediction form keeps the model's original validation and preprocessing logic intact.</p><a class="btn btn-primary" href="/prediction">Open prediction form →</a></div>
+
+      </section>
+
+    {% elif page == "prediction" %}
+
+      <section class="hero"><div class="eyebrow">Prediction workspace</div><h1>Assess a flight’s<br>delay risk.</h1><p>Required fields are marked with an asterisk. Airport and airline names are shown here; their codes are sent to the model.</p></section>
+
+      <div class="form-layout">
+
+        <section class="card">
+
+          <h2>Flight details</h2>
+
+          <div class="row"><div><label for="flight_date">Flight date <span class="hint">*</span></label><input type="date" id="flight_date"><div class="err" data-for="flight_date"></div><div class="muted" id="dateHint"></div></div><div><label for="dep_time">Scheduled departure <span class="hint">*</span></label><input type="time" id="dep_time"><div class="err" data-for="dep_time"></div></div></div>
+
+          <label for="carrier">Airline <span class="hint">*</span></label><select id="carrier"><option value="">Loading airlines…</option></select><div class="err" data-for="carrier"></div>
+
+          <div class="row"><div><label for="origin">Departure airport <span class="hint">*</span></label><select id="origin"><option value="">Loading airports…</option></select><div class="err" data-for="origin"></div></div><div><label for="dest">Arrival airport <span class="hint">*</span></label><select id="dest"><option value="">Loading airports…</option></select><div class="err" data-for="dest"></div></div></div>
+
+          <details id="recentBlock"><summary>Recent delays <span class="hint">(improves accuracy)</span></summary><p class="muted">Average delay in minutes for flights in the last few hours. Blank uses stored 2024 history when available.</p><div class="row"><div><label for="recent_o_delay">Origin airport</label><input type="number" id="recent_o_delay" step="any" min="-30" max="300"><div class="err" data-for="recent_o_delay"></div></div><div><label for="recent_d_delay">Destination airport</label><input type="number" id="recent_d_delay" step="any" min="-30" max="300"><div class="err" data-for="recent_d_delay"></div></div></div><label for="recent_c_delay">This airline (network-wide)</label><input type="number" id="recent_c_delay" step="any" min="-30" max="300"><div class="err" data-for="recent_c_delay"></div></details>
+
+          <details><summary>Optional schedule and weather details</summary><div class="row"><div><label for="arr_time">Scheduled arrival</label><input type="time" id="arr_time"><div class="err" data-for="arr_time"></div></div><div><label for="duration">Duration <span class="hint">(minutes)</span></label><input type="number" id="duration" min="20" max="1500" step="1"><div class="err" data-for="duration"></div></div></div><p class="muted">Blank weather fields use typical values for that airport and month.</p><div class="row">{% for field,label in [("o_temp","Origin temperature"),("d_temp","Destination temperature"),("o_prcp","Origin precipitation"),("d_prcp","Destination precipitation"),("o_wspd","Origin wind speed"),("d_wspd","Destination wind speed")] %}<div><label for="{{ field }}">{{ label }}</label><input type="number" id="{{ field }}" step="any"><div class="err" data-for="{{ field }}"></div></div>{% endfor %}</div></details>
+
+          <div class="err" id="formError" style="margin-top:10px"></div><div class="form-actions"><button class="btn btn-primary" id="go" type="button">Predict delay →</button><button class="btn btn-secondary" id="example" type="button">Example</button><button class="btn btn-secondary" id="reset" type="button">Reset</button></div>
+
+        </section>
+
+        <section class="card result-card"><h2>Prediction result</h2><div id="placeholder" class="muted">Complete the required details and select <b>Predict delay</b>.</div><div id="result" class="hidden"><span class="badge" id="badge"></span><div class="muted" id="desc" style="margin-top:7px"></div><div class="big" id="risk"></div><div class="muted">estimated chance of arriving 15+ minutes late · risk level: <b id="level"></b></div><h3>Estimated outcome probabilities</h3><div id="bars"></div><div id="source" class="muted" style="margin-top:14px"></div><div id="warnings"></div><div id="assumptions"></div></div></section>
+
+      </div>
+
+    {% elif page == "performance" %}
+
+      <section class="hero"><div class="eyebrow">Evidence, not guesswork</div><h1>Model performance.</h1><p>These values are loaded from the exported evaluation artifacts bundled with the project. Missing artifacts are identified rather than replaced with invented results.</p></section>
+
+      {% if performance.metrics %}
+
+      <div class="metric-grid">{% for key,label in [("accuracy","Accuracy"),("macro_f1","Macro F1"),("balanced_accuracy","Balanced accuracy"),("weighted_f1","Weighted F1")] %}<div class="metric"><span>{{ label }}</span><strong>{% if performance.metrics.get(key) is not none %}{{ "%.3f"|format(performance.metrics.get(key)) }}{% else %}N/A{% endif %}</strong></div>{% endfor %}</div>
+
+      <div class="card" style="margin-bottom:20px"><h2>Test report · {{ model_name }}</h2><p>Reported on the held-out test set. Accuracy can be influenced by class imbalance, so macro F1 is shown alongside it.</p><div class="table-wrap"><table class="table"><tbody>{% for key,value in performance.metrics.items() %}<tr><th>{{ key|replace("_"," ")|title }}</th><td>{% if value is number %}{{ "%.6f"|format(value) }}{% else %}{{ value }}{% endif %}</td></tr>{% endfor %}</tbody></table></div></div>
+
+      {% else %}<div class="missing">Test metrics are not available in <code>backend/artifacts/meta.json</code>.</div>{% endif %}
+
+      <div class="grid-2"><div class="card"><h2>Confusion matrix</h2>{% if performance.confusion_matrix_available %}<img class="matrix" src="/artifacts/confusion-matrix" alt="Test-set confusion matrix">{% else %}<div class="missing">The exported confusion matrix is not available.</div>{% endif %}</div><div class="card"><h2>Model comparison</h2>{% if performance.comparison %}<div class="table-wrap"><table class="table"><thead><tr><th>Model</th><th>Validation accuracy</th><th>Macro F1</th></tr></thead><tbody>{% for row in performance.comparison %}<tr><td>{{ row.get("model","—") }}</td><td>{% if row.get("val_acc_tuned") is not none %}{{ "%.3f"|format(row.get("val_acc_tuned")) }}{% else %}—{% endif %}</td><td>{% if row.get("val_macro_f1_tuned") is not none %}{{ "%.3f"|format(row.get("val_macro_f1_tuned")) }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="missing">Model comparison data is not available.</div>{% endif %}</div></div>
+
+    {% else %}
+
+      <section class="hero"><div class="eyebrow">Project guide</div><h1>About Altura.</h1><p>A practical machine-learning application for estimating flight delay severity from operational, contextual and weather information.</p></section>
+
+      <div class="grid-2"><div class="card"><h2>Project and dataset</h2><p>The app is trained on the 2024 flight and weather data prepared in the accompanying notebook. It learns patterns from scheduled operations and observed arrival delay outcomes.</p><h3>Preprocessing</h3><p>Categorical airline and airport codes are encoded with the saved training encoder. Time values become cyclical features, route distance is calculated from airport coordinates, and missing optional context is filled with stored historical or typical values.</p><h3>Model</h3><p>The deployed model is <b>{{ model_name }}</b>, loaded from the saved model bundle with the same feature order, class weights and tuned decision multipliers used during evaluation.</p></div><div class="card"><h2>What you can enter</h2><ul class="list"><li>Flight date and scheduled departure time</li><li>Airline, origin and destination airports</li><li>Optional scheduled arrival and duration</li><li>Optional origin/destination temperature, precipitation and wind</li><li>Optional recent delay averages for airports and airline</li></ul><h2 style="margin-top:24px">Delay categories</h2>{% for name,description in class_info.items() %}<div class="class-chip"><strong>{{ name }}</strong><br><span class="muted">{{ description|capitalize }}</span></div>{% endfor %}</div></div>
+
+    {% endif %}
+
+    </main>
+
+    <footer>Altura · Predictions are estimates, not guarantees. Data coverage: {{ date_min }} to {{ date_max }}.</footer>
+
+  </div>
+
+</div>
+
+{% if page == "prediction" %}
+
+<script>
+
+const $=id=>document.getElementById(id),FIELDS=["flight_date","dep_time","carrier","origin","dest","arr_time","duration","o_temp","d_temp","o_prcp","d_prcp","o_wspd","d_wspd","recent_o_delay","recent_d_delay","recent_c_delay"],COLORS={"On-time":"#11866e",Minor:"#d78e22",Moderate:"#dc6c32",Severe:"#ca5268"};let META=null;
+
+async function init(){try{META=await(await fetch("/api/meta")).json()}catch(e){$("formError").textContent="Cannot reach the prediction service.";return}function populate(id,codes,names,placeholder){let s=$(id);s.replaceChildren(new Option(placeholder,""));[...codes].sort((a,b)=>(names[a]||a).localeCompare(names[b]||b)).forEach(c=>s.add(new Option(names[c]||c,c)))}populate("carrier",META.carriers,META.carrier_names||{},"Choose airline");populate("origin",META.airports,META.airport_names||{},"Choose departure airport");populate("dest",META.airports,META.airport_names||{},"Choose arrival airport");const tr=META.typical_recent||{};$("recent_o_delay").placeholder="typical "+(tr.o??"");$("recent_d_delay").placeholder="typical "+(tr.d??"");$("recent_c_delay").placeholder="typical "+(tr.c??"");$("flight_date").addEventListener("change",updateDateHint);const typ={o_temp:"O_TEMP",d_temp:"D_TEMP",o_prcp:"O_PRCP",d_prcp:"D_PRCP",o_wspd:"O_WSPD",d_wspd:"D_WSPD"};for(const k in typ)$(k).placeholder="typical "+Number(META.weather_global[typ[k]]).toFixed(1)}
+
+function updateDateHint(){let d=$("flight_date").value;if(!d||!META){$("dateHint").textContent="";return}let outside=d<META.date_min||d>META.date_max;$("dateHint").textContent=outside?`Outside ${META.date_min} to ${META.date_max}: fill in Recent delays below.`:"";if(outside)$("recentBlock").open=true}
+
+function clearErrors(){document.querySelectorAll(".err").forEach(e=>e.textContent="");FIELDS.forEach(f=>$(f).classList.remove("invalid"));$("formError").textContent=""}function setErr(k,msg){let e=document.querySelector(`.err[data-for="${k}"]`);if(e){e.textContent=msg;$(k).classList.add("invalid")}else $("formError").textContent=msg}
+
+function payload(){let p={};FIELDS.forEach(f=>p[f]=$(f).value.trim());p.origin=p.origin.toUpperCase();p.dest=p.dest.toUpperCase();return p}
+
+function clientValidate(p){let e={};if(!p.flight_date)e.flight_date="Choose the flight date.";if(!p.dep_time)e.dep_time="Enter the scheduled departure time.";if(!p.carrier)e.carrier="Choose an airline.";if(!p.origin)e.origin="Choose the departure airport.";else if(!META.airports.includes(p.origin))e.origin="Choose an airport from the list.";if(!p.dest)e.dest="Choose the arrival airport.";else if(!META.airports.includes(p.dest))e.dest="Choose an airport from the list.";if(p.origin&&p.origin===p.dest)e.dest="Destination must differ from the origin.";if(p.duration!==""&&(isNaN(Number(p.duration))||Number(p.duration)<20||Number(p.duration)>1500))e.duration="Enter minutes between 20 and 1500.";for(const k of ["recent_o_delay","recent_d_delay","recent_c_delay"])if(p[k]!==""&&(isNaN(Number(p[k]))||Number(p[k])<-30||Number(p[k])>300))e[k]="Enter minutes between -30 and 300.";return e}
+
+async function predict(){clearErrors();if(!META){$("formError").textContent="The prediction service is still loading.";return}let p=payload(),errs=clientValidate(p);if(Object.keys(errs).length){for(const k in errs)setErr(k,errs[k]);return}$("go").disabled=true;$("go").textContent="Predicting…";try{let res=await fetch("/api/predict",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}),d=await res.json();if(!d.ok){for(const k in d.errors)setErr(k,d.errors[k]);showResult(null)}else showResult(d)}catch(e){$("formError").textContent="Cannot reach the prediction service. Is the backend running?"}$("go").disabled=false;$("go").textContent="Predict delay →"}
+
+function showResult(d){$("placeholder").classList.toggle("hidden",!!d);$("result").classList.toggle("hidden",!d);if(!d)return;let b=$("badge");b.textContent=d.prediction;b.className="badge "+d.prediction.replace("-","");$("desc").textContent="This flight most likely "+d.description+"."; $("risk").textContent=Math.round(d.delay_risk*100)+"%";$("level").textContent=d.risk_level;$("bars").innerHTML=Object.entries(d.probabilities).map(([n,v])=>`<div class="bar"><span>${n}</span><div class="track"><div class="fill" style="width:${Math.max(v*100,1)}%;background:${COLORS[n]}"></div></div><span>${(v*100).toFixed(1)}%</span></div>`).join("");let cs=d.context_source||{};$("source").innerHTML="<b>Recent-delay sources:</b> origin – "+cs.origin+"; destination – "+cs.destination+"; airline – "+cs.airline+".";$("warnings").innerHTML=d.warnings.length?`<div class="notice warn"><b>Please note</b><ul>${d.warnings.map(w=>`<li>${w}</li>`).join("")}</ul></div>`:"";$("assumptions").innerHTML=d.assumptions.length?`<div class="notice info"><b>Values filled automatically</b><ul>${d.assumptions.map(w=>`<li>${w}</li>`).join("")}</ul></div>`:""}
+
+$("go").addEventListener("click",predict);$("reset").addEventListener("click",()=>{FIELDS.forEach(f=>$(f).value="");clearErrors();showResult(null);updateDateHint()});$("example").addEventListener("click",()=>{if(!META)return;$("flight_date").value="2024-07-15";$("dep_time").value="17:30";$("carrier").value=META.carriers.includes("DL")?"DL":META.carriers[0];$("origin").value=META.airports.includes("ATL")?"ATL":META.airports[0];$("dest").value=META.airports.includes("JFK")?"JFK":META.airports[1];$("duration").value="145";updateDateHint()});init();
+
+</script>
+
+{% endif %}
+
+</body>
+
+</html>
